@@ -24,6 +24,7 @@ public class ForgotFragment extends Fragment {
 
     private EditText etF;
     private FirebaseServices fbs;
+    private Button btnR;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,8 +83,7 @@ public class ForgotFragment extends Fragment {
         {
             fbs=FirebaseServices.getInstance();
             etF=getView().findViewById(R.id.etEmailForgotPassword);
-
-            Button btnR = getView().findViewById(R.id.btnResetForgrotPassword);
+            btnR = getView().findViewById(R.id.btnResetForgrotPassword);
             btnR.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

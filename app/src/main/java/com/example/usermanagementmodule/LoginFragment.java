@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ import com.google.firebase.auth.AuthResult;
  */
 public class LoginFragment extends Fragment {
 
-    private EditText etUsername,etPassword;
+    private EditText etUsername,etPassword,etForgot;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,10 +83,18 @@ public class LoginFragment extends Fragment {
         etPassword=getView().findViewById(R.id.etPasswordLogin);
         Button btnLogin = getView().findViewById(R.id.btnLoginLogin);
         TextView tvSignupLink = getView().findViewById(R.id.tvSignupLogin);
+        TextView tvForgotLink = getView().findViewById(R.id.etForgot);
+        tvForgotLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoForgotpassFragment();
+            }
+        });
         tvSignupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoSignupFragment();
+
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -98,8 +107,8 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //Signup procedure
-                fbs.getAuth().createUserWithEmailAndPassword(user, pass).addOnSuccessListener(
+                //Login procedure
+                fbs.getAuth().signInWithEmailAndPassword(user, pass).addOnSuccessListener(
                         new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
@@ -120,9 +129,17 @@ public class LoginFragment extends Fragment {
         })
 
         ;}
+
      private void gotoSignupFragment() {
          FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
          ft.replace(R.id.frameLayout2, new SignupFragment());
          ft.commit();
      }
+    private void gotoForgotpassFragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout2,new ForgotFragment());
+        ft.commit();
     }
+
+
+}
