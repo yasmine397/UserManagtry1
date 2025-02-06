@@ -1,5 +1,7 @@
 package com.example.usermanagementmodule;
 
+import android.net.Uri;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -16,7 +18,12 @@ public class FirebaseServices {
         fire=FirebaseFirestore.getInstance();
         storage=FirebaseStorage.getInstance();
     }
+ public static  FirebaseServices GetInstance(){
+        if (instance==null)
+            instance=new FirebaseServices();
+        return instance;
 
+ }
     public FirebaseAuth getAuth() {
         return auth;
     }
@@ -35,4 +42,8 @@ public class FirebaseServices {
         }
         return instance;
      }
+
+    public void setSelectedImageURL(Uri uri) {
+
+    }
 }

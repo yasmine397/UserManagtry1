@@ -27,7 +27,7 @@ import com.google.firebase.auth.AuthResult;
  */
 public class LoginFragment extends Fragment {
 
-    private EditText etUsername,etPassword,etForgot;
+    private EditText etUsername, etPassword, etForgot;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -78,9 +78,9 @@ public class LoginFragment extends Fragment {
     public void onStart() {
         super.onStart();
         //connecting components
-        fbs=FirebaseServices.getInstance();
-        etUsername=getView().findViewById(R.id.etUsernameLogin);
-        etPassword=getView().findViewById(R.id.etPasswordLogin);
+        fbs = FirebaseServices.getInstance();
+        etUsername = getView().findViewById(R.id.etUsernameLogin);
+        etPassword = getView().findViewById(R.id.etPasswordLogin);
         Button btnLogin = getView().findViewById(R.id.btnLoginLogin);
         TextView tvSignupLink = getView().findViewById(R.id.tvSignupLogin);
         TextView tvForgotLink = getView().findViewById(R.id.etForgot);
@@ -114,6 +114,7 @@ public class LoginFragment extends Fragment {
                             public void onSuccess(AuthResult authResult) {
                                 //what to do if success
                                 Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                                gotoAddBookFragment();
                             }
                         }
 
@@ -128,16 +129,24 @@ public class LoginFragment extends Fragment {
             }
         })
 
-        ;}
+        ;
+    }
 
-     private void gotoSignupFragment() {
-         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-         ft.replace(R.id.frameLayout2, new SignupFragment());
-         ft.commit();
-     }
+    private void gotoAddBookFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout2, new AddDataFragment());
+        ft.commit();
+    }
+
+    private void gotoSignupFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout2, new SignupFragment());
+        ft.commit();
+    }
+
     private void gotoForgotpassFragment() {
-        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout2,new ForgotFragment());
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout2, new ForgotFragment());
         ft.commit();
     }
 
