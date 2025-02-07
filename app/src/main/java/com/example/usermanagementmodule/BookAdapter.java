@@ -40,7 +40,6 @@ public class BookAdapter {
 
 
     @NonNull
-
     public BookAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_book, parent, false);
         return new BookAdapter.MyViewHolder(v);

@@ -27,7 +27,7 @@ import java.util.ArrayList;
  */
 public class AllDataFragment extends Fragment {
     private FirebaseServices fbs;
-    private ArrayList<Book> rests;
+    private ArrayList<Book> bbook;
     private RecyclerView rvRests;
     private BookAdapter adapter;
 
@@ -44,6 +44,8 @@ public class AllDataFragment extends Fragment {
         // Required empty public constructor
     }
 
+    ArrayList<Book> books=new ArrayList<>();
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -53,7 +55,12 @@ public class AllDataFragment extends Fragment {
      * @return A new instance of fragment AllRestaurantsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AllRestaurantsFragment newInstance(String param1, String param2) {
+
+    private void setupbooks(){
+        String[] bookname=getResources().getStringArray(R.array.class);
+    }
+
+    public static AddDataFragment newInstance(String param1, String param2) {
         AddDataFragment fragment = new AddDataFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -77,6 +84,7 @@ public class AllDataFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_all_data, container, false);
     }
+
 
 
     @Override
