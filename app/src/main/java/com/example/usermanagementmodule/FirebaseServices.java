@@ -12,6 +12,13 @@ public class FirebaseServices {
     private FirebaseAuth auth;
     private FirebaseFirestore fire;
     private FirebaseStorage storage;
+    private Uri selectedImageURL;
+    private DataUser currentUser;
+    private boolean userChangeFlag;
+
+    public Uri getSelectedImageURL() {
+        return selectedImageURL;
+    }
 
     public FirebaseServices() {
         auth=FirebaseAuth.getInstance();

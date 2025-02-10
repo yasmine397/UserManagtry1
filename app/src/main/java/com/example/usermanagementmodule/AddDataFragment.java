@@ -1,10 +1,12 @@
 package com.example.usermanagementmodule;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,4 +112,5 @@ public  void  onStart(){
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_book, container, false);
     }
+
 }

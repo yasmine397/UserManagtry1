@@ -1,12 +1,15 @@
 package com.example.usermanagementmodule;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +29,10 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class AllDataFragment extends Fragment {
+    private static final int GALLERY_REQUEST_CODE =123 ;
     private FirebaseServices fbs;
-    private ArrayList<Book> bbook;
-    private RecyclerView rvRests;
+    private ArrayList<Book> books;
+    private RecyclerView rvBook;
     private BookAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -44,7 +48,6 @@ public class AllDataFragment extends Fragment {
         // Required empty public constructor
     }
 
-    ArrayList<Book> books=new ArrayList<>();
 
     /**
      * Use this factory method to create a new instance of
@@ -56,9 +59,6 @@ public class AllDataFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
 
-    private void setupbooks(){
-        String[] bookname=getResources().getStringArray(R.array.class);
-    }
 
     public static AddDataFragment newInstance(String param1, String param2) {
         AddDataFragment fragment = new AddDataFragment();
@@ -85,27 +85,25 @@ public class AllDataFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_all_data, container, false);
     }
 
-
-
     @Override
     public void onStart() {
         super.onStart();
 
         fbs = FirebaseServices.getInstance();
         ArrayList<Object> book = new ArrayList<>();
-        rvRests = getView().findViewById(R.id.Fragment);
-        adapter = new BookAdapter(getActivity(), rests);
-        rvRests.setAdapter(adapter);
-        rvRests.setHasFixedSize(true);
-        rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvBook = getView().findViewById(R.id.);
+        adapter = new BookAdapter(getActivity(),books);
+        rvBook.setAdapter(adapter);
+        rvBook.setHasFixedSize(true);
+       rvBook.setLayoutManager(new LinearLayoutManager(getActivity()));
         fbs.getFire().collection("restaurants").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                 for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
-                   Book rest = dataSnapshot.toObject(Book.class);
+                   Book books = dataSnapshot.toObject(Book.class);
 
-                    rests.add(rest);
+                    BookAdapter.add(books);
                 }
 
                 adapter.notifyDataSetChanged();
@@ -117,6 +115,72 @@ public class AllDataFragment extends Fragment {
                 Log.e("AllRestaurantsFragment", e.getMessage());
             }
         });
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+
+            private void openGallery() {
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+            }
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent Data) {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == GALLERY_REQUEST_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+                Uri selectedImageUri = data.getData();
+                img.setImageURI(selectedImageUri);
+                utils.uploadImage(getActivity(), selectedImageUri);
+            }
+        }
+        Book  book123;
+
+        if (fbs.getSelectedImageURL() == null)
+        {
+            book123= new Book(name,veiw, realestDate,deseridsion,booklan,photo);
+
+        }
+        else {
+            book123 = new Book(name, veiw, realestDate, deseridsion, booklan, photo, fbs.getSelectedImageURL().toString());
+        }
+
+        public void uploadImage(Uri selectedImageUri) {
+            if (selectedImageUri != null) {
+                imageStr = "images/" + UUID.randomUUID() + ".jpg"; //+ selectedImageUri.getLastPathSegment();
+                StorageReference imageRef = fbs.getStorage().getReference().child("images/" + selectedImageUri.getLastPathSegment());
+
+                UploadTask uploadTask = imageRef.putFile(selectedImageUri);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                //selectedImageUri = uri;
+                                fbs.setSelectedImageURL(uri);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+                        Toast.makeText(getActivity(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Failed to upload image", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(getActivity(), "Please choose an image first", Toast.LENGTH_SHORT).show();
+            }
     }
 }
 
