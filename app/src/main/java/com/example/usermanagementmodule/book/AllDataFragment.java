@@ -80,20 +80,12 @@ public class AllDataFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_furniture, container, false);
+        return inflater.inflate(R.layout.fragment_all_data, container, false);
     }
 
     @Override
@@ -101,20 +93,20 @@ public class AllDataFragment extends Fragment {
         super.onStart();
 
         fbs = FirebaseServices.getInstance();
-        Furs = new ArrayList<>();
-        rvFurs = getView().findViewById(R.id.rvFurnitureFurFragment);
-        adapter = new MyAdapter(getActivity(), Furs);
-        rvFurs.setAdapter(adapter);
-        rvFurs.setHasFixedSize(true);
-        rvFurs.setLayoutManager(new LinearLayoutManager(getActivity()));
+        books = new ArrayList<>();
+        rvBook = getView().findViewById(R.id.rvbooksFragment);
+        adapter = new BookAdapter(getActivity(),books);
+        rvBook.setAdapter(adapter);
+        rvBook.setHasFixedSize(true);
+        rvBook.setLayoutManager(new LinearLayoutManager(getActivity()));
         fbs.getFire().collection("furniture").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                 for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
-                    Furniture Fur = dataSnapshot.toObject(Furniture.class);
+                    Book bok = dataSnapshot.toObject(Book.class);
 
-                    Furs.add(Fur);
+                    books.add(bok);
                 }
 
                 adapter.notifyDataSetChanged();

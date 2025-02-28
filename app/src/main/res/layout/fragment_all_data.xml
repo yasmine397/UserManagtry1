@@ -6,7 +6,7 @@
     tools:context=".book.AllDataFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFurnitureFurFragment"
+        android:id="@+id/rvbooksFragment"
         android:layout_width="442dp"
         android:layout_height="800dp" />
 </FrameLayout>
