@@ -1,5 +1,7 @@
 package com.example.usermanagementmodule;
 
+import com.example.usermanagementmodule.book.Book;
+
 import java.util.ArrayList;
 
 public class DataUser {

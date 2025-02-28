@@ -1,10 +1,9 @@
-package com.example.usermanagementmodule;
+package com.example.usermanagementmodule.book;
 
 import static android.app.PendingIntent.getActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.usermanagementmodule.FirebaseServices;
+import com.example.usermanagementmodule.R;
+
 import java.util.ArrayList;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> {
@@ -22,7 +24,7 @@ ArrayList<Book> restList;
 private FirebaseServices fbs;
 
 
-public void DataUserAdapter(Context context, ArrayList<Book> restList) {
+public void DataAdapter(Context context, ArrayList<Book> restList) {
     this.context = context;
     this.restList = restList;
     this.fbs = FirebaseServices.getInstance();
@@ -30,6 +32,7 @@ public void DataUserAdapter(Context context, ArrayList<Book> restList) {
 
 
 @NonNull
+@Override
 public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View v = LayoutInflater.from(context).inflate(R.layout.item_book, parent, false);
     return new BookAdapter.MyViewHolder(v);
@@ -44,10 +47,6 @@ public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
     holder.tvDeseridsionbookItem.setText(rest.getDeseridsion());
     holder.tvbookphoto.setImageURI(rest.getPhoto());
 
-}
-
-
-private void startActivityForResult(Intent galleryIntent, int galleryRequestCode) {
 }
 
 

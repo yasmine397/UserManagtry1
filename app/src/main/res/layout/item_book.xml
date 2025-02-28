@@ -9,43 +9,48 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvbooknamebookItem"
-            android:layout_width="190dp"
-            android:layout_height="291dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tvDeseridsionbookItem"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tvdatebookItem"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tvlanguagebookItem"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_weight="1" />
-
         <ImageView
             android:id="@+id/tvbookphoto"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="etphotobook"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tvDeseridsionbookItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="gfgujy" />
+
+        <TextView
+            android:id="@+id/tvbooknamebookItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="thyeh" />
+
+        <TextView
+            android:id="@+id/tvdatebookItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="dsd" />
+
+        <TextView
+            android:id="@+id/tvlanguagebookItem"
+            android:layout_width="match_parent"
+            android:layout_height="9dp"
+            android:layout_weight="1"
+            android:hint="vddsdddd" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
