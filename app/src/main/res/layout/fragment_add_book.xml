@@ -14,12 +14,15 @@
             android:id="@+id/etMainAddBookN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="97dp"
+            android:layout_marginTop="280dp"
+            android:layout_marginBottom="44dp"
             android:ems="10"
             android:hint="bookname..."
             android:inputType="text"
             android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/etMainBookLan"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
@@ -28,50 +31,72 @@
             android:id="@+id/etrealestDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="54dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="68dp"
             android:ems="10"
             android:hint="date"
             android:inputType="text"
             android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAdd"
             app:layout_constraintStart_toStartOf="@+id/etMainAddBookN"
-            app:layout_constraintTop_toBottomOf="@+id/etMainAddBookN"
+            app:layout_constraintTop_toBottomOf="@+id/etMainBookLan"
             tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/etMainDeseridsion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="57dp"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="60dp"
             android:ems="10"
             android:hint="deseridsion"
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintStart_toStartOf="@+id/etrealestDate"
-            app:layout_constraintTop_toBottomOf="@+id/etrealestDate"
+            app:layout_constraintBottom_toTopOf="@+id/etMainAddBookN"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
             tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/etMainBookLan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="156dp"
             android:ems="10"
             android:hint="Language"
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintStart_toStartOf="@+id/etMainDeseridsion"
+            app:layout_constraintBottom_toTopOf="@+id/etrealestDate"
             app:layout_constraintTop_toBottomOf="@+id/etMainDeseridsion"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="100dp" />
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="77dp"
+            android:layout_marginBottom="103dp"
             android:text="ADD"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="141dp"
+            android:layout_marginEnd="142dp"
+            app:layout_constraintBottom_toTopOf="@+id/etMainDeseridsion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etMainBookLan"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
