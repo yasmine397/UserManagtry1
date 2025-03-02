@@ -19,17 +19,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_splashscreen);
-        //start the main screen in 2sec
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(MainActivity.this, splashscreenActivity.class));
-                finish();//finish this activty
-            }
-        }, 2000);//means 2sec
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
     }

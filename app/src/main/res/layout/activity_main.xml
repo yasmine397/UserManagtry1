@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -13,7 +14,133 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/c3st"
+                android:layout_width="176dp"
+                android:layout_height="247dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.148"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.256"
+                app:srcCompat="@drawable/C2"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/c2st"
+                android:layout_width="183dp"
+                android:layout_height="252dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.877"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.258"
+                app:srcCompat="@drawable/C4"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/c1s"
+                android:layout_width="189dp"
+                android:layout_height="256dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.261"
+                app:srcCompat="@drawable/C1"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/bnsignupst"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="334dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@color/nevyred_8"
+                android:text="sign up"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/bnloginst"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/watst"
+                style="@style/Widget.Material3.MaterialTimePicker.Display.HelperText"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:autoSizeTextType="none"
+                android:scrollbarStyle="outsideOverlay"
+                android:text="wat"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.43"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.607"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/bookst"
+                style="@android:style/Widget.DeviceDefault.Light.TextView.SpinnerItem"
+                android:layout_width="108dp"
+                android:layout_height="39dp"
+                android:autoSizeTextType="none"
+                android:scrollbarStyle="outsideOverlay"
+                android:text="book"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/nevyred_8"
+                android:textSize="34sp"
+                app:flow_firstHorizontalStyle="spread"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.608"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="252dp"
+                android:layout_height="48dp"
+                android:text="Reading books is dreaming with                           open eyes"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#D6D1D1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.699"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/bnloginst"
+                android:layout_width="328dp"
+                android:layout_height="51dp"
+                android:layout_marginBottom="28dp"
+                android:background="@color/nevyred_8"
+                android:text="Login"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.53"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
