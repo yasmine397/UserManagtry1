@@ -151,7 +151,7 @@ public class AddDataFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getActivity(), "welcome", Toast.LENGTH_SHORT).show();
                         FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                        transaction.replace(R.id.main ,new HomeFragment());
+                        transaction.replace(R.id.etMainAddBookN,new HomeFragment());
                         transaction.commit();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -174,7 +174,6 @@ public class AddDataFragment extends Fragment {
         }
     }
 }
-    }
 
 
-}
+

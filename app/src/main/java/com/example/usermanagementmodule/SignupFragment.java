@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.usermanagementmodule.book.AddDataFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -117,7 +118,7 @@ public class SignupFragment extends Fragment {
     ;}
     private void gotoAddBookFragment() {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout2, new AddBookFragment());
+        ft.replace(R.id.frameLayout2, new AddDataFragment());
         ft.commit();
     }
 }

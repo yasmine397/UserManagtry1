@@ -1,7 +1,5 @@
 package com.example.usermanagementmodule.book;
 
-import android.net.Uri;
-
 public class Book {
     private String name;
     private String veiw;
@@ -19,7 +17,7 @@ public class Book {
         this.booklan=booklan;
     }
 
-    public Uri getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
