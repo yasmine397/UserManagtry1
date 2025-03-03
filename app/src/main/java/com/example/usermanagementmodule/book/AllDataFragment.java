@@ -1,22 +1,20 @@
 package com.example.usermanagementmodule.book;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.usermanagementmodule.FirebaseServices;
+import com.example.usermanagementmodule.Main.sampledata.FirebaseServices;
 import com.example.usermanagementmodule.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +30,7 @@ import java.util.ArrayList;
  */
 public class AllDataFragment extends Fragment {
     private static final int GALLERY_REQUEST_CODE =123 ;
+    Context context;
     private FirebaseServices fbs;
     private ArrayList<Book> books;
     private RecyclerView rvBook;
@@ -91,7 +90,9 @@ public class AllDataFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+    }
+    public void conect()
+    {
         fbs = FirebaseServices.getInstance();
         books = new ArrayList<>();
         rvBook = getView().findViewById(R.id.rvbooksFragment);

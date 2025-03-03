@@ -18,7 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.usermanagementmodule.FirebaseServices;
+import com.example.usermanagementmodule.Main.sampledata.FirebaseServices;
+import com.example.usermanagementmodule.HomeFragment;
 import com.example.usermanagementmodule.R;
 import com.example.usermanagementmodule.Utils;
 import com.google.android.gms.tasks.OnFailureListener;

@@ -1,14 +1,15 @@
-package com.example.usermanagementmodule;
+package com.example.usermanagementmodule.Main.sampledata;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.usermanagementmodule.LoginFragment;
+import com.example.usermanagementmodule.R;
 
 public class MainActivity extends AppCompatActivity {
     private TextView etForgot, etSignUp, etLongin;
