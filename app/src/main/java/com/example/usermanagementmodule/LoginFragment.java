@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.usermanagementmodule.book.AddDataFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,8 +29,11 @@ import com.google.firebase.auth.AuthResult;
  */
 public class LoginFragment extends Fragment {
 
+    private static final String TAG = "LoginFragment"; // Tag for logging
+    
     private EditText etUsername, etPassword, etForgot;
     private FirebaseServices fbs;
+    private TextView tvSignupLink;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,60 +87,111 @@ public class LoginFragment extends Fragment {
         etUsername = getView().findViewById(R.id.etUsernameLogin);
         etPassword = getView().findViewById(R.id.etPasswordLogin);
         Button btnLogin = getView().findViewById(R.id.btnLoginLogin);
-        TextView tvSignupLink = getView().findViewById(R.id.tvSignupLogin);
+        tvSignupLink = getView().findViewById(R.id.tvSignupLogin);
         TextView tvForgotLink = getView().findViewById(R.id.etForgot);
+        
+        // Check if user is already logged in
+        if (fbs.getAuth().getCurrentUser() != null) {
+            // User is already signed in, fetch their data
+            loadUserData(fbs.getAuth().getCurrentUser().getUid());
+        }
+        
         tvForgotLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoForgotpassFragment();
             }
         });
+        
         tvSignupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoSignupFragment();
-
             }
         });
+        
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Data volidation
-                String user = etUsername.getText().toString();
+                // Data validation
+                String email = etUsername.getText().toString();
                 String pass = etPassword.getText().toString();
-                if (user.trim().isEmpty() && pass.trim().isEmpty()) {
-                    Toast.makeText(getActivity(), "some fields are empty!", Toast.LENGTH_SHORT).show();
+                
+                if (email.trim().isEmpty() || pass.trim().isEmpty()) {
+                    Toast.makeText(getActivity(), "Email and password cannot be empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //Login procedure
-                fbs.getAuth().signInWithEmailAndPassword(user, pass).addOnSuccessListener(
+                
+                // Login procedure
+                fbs.getAuth().signInWithEmailAndPassword(email, pass).addOnSuccessListener(
                         new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                //what to do if success
-                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                                gotoAddBookFragment();
+                                Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
+                                // Get the user data from Firestore
+                                String userId = fbs.getAuth().getCurrentUser().getUid();
+                                loadUserData(userId);
                             }
                         }
-
                 ).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //if its fail
-                        Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Login failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
-        })
-
-        ;
+        });
+    }
+    
+    private void loadUserData(String userId) {
+        fbs.getFire().collection("users").document(userId)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            // Convert to DataUser object
+                            DataUser user = documentSnapshot.toObject(DataUser.class);
+                            
+                            // Set the current user in FirebaseServices
+                            FirebaseServices.getInstance().setCurrentUser(user);
+                            
+                            // Navigate to home screen
+                            gotoHomeFragment();
+                        } else {
+                            Toast.makeText(getActivity(), "User data not found", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Error loading user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
+    private void gotoHomeFragment() {
+        try {
+            if (getActivity() == null) {
+                Log.e(TAG, "getActivity() returned null. Fragment may be detached.");
+                return;
+            }
+            
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout2, new HomeFragment());
+            ft.commit();
+            Log.d(TAG, "Successfully navigated to HomeFragment");
+        } catch (Exception e) {
+            Log.e(TAG, "Error navigating to HomeFragment: " + e.getMessage(), e);
+            if (getContext() != null) {
+                Toast.makeText(getContext(), "Error navigating to home screen", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+    
     private void gotoAddBookFragment() {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout2, new AddDataFragment());
-        ft.commit();
+        gotoHomeFragment();
     }
 
     private void gotoSignupFragment() {
@@ -149,6 +205,4 @@ public class LoginFragment extends Fragment {
         ft.replace(R.id.frameLayout2, new ForgotFragment());
         ft.commit();
     }
-
-
 }

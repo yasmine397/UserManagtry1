@@ -14,12 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.usermanagementmodule.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> {
 Context context;
 ArrayList<Book> restList;
+private OnBookClickListener BookClickListener;
 
 
     public BookAdapter(Context context, ArrayList<Book> restList) {
@@ -37,20 +39,45 @@ public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) 
 
 public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
     Book book = restList.get(position);
-    holder.tvbooknamebookItem.setText(book.getName());
-    holder.tvlanguagebookItem.setText(book.getBooklan());
-    holder.tvdatebookItem.setText(book.getRealestDate());
-    holder.tvDeseridsionbookItem.setText(book.getDeseridsion());
-    holder.tvbookphoto.setImageURI(book.getPhoto());
-
-    if (book.getPhoto() == null || book.getPhoto().isEmpty())
-        holder.profileImageView.setImageURI(Uri.parse(book.getPhoto()));
-    else Picasso.get().load(book.getPhoto()).into(holder.profileImageView);
-    holder.nameTextView.setOnClickListener(v -> {
-        if (BookClickListener != null) {
-            BookClickListener.onItemClick(position);
+    
+    try {
+        holder.tvbooknamebookItem.setText(book.getName());
+        holder.tvlanguagebookItem.setText(book.getBooklan());
+        holder.tvdatebookItem.setText(book.getRealestDate());
+        holder.tvDeseridsionbookItem.setText(book.getDeseridsion());
+        
+        // Handle image loading with proper error handling
+        String photoUrl = book.getPhoto();
+        if (photoUrl != null && !photoUrl.isEmpty()) {
+            try {
+                if (photoUrl.startsWith("http") || photoUrl.startsWith("https")) {
+                    // Load from network URL using Picasso
+                    Picasso.get().load(photoUrl).into(holder.tvbookphoto);
+                } else {
+                    // Try to load from URI (local file)
+                    Uri photoUri = Uri.parse(photoUrl);
+                    holder.tvbookphoto.setImageURI(photoUri);
+                }
+            } catch (Exception e) {
+                // Handle image loading error - set a default placeholder image
+                holder.tvbookphoto.setImageResource(R.drawable.ic_book_placeholder);
+                e.printStackTrace();
+            }
+        } else {
+            // Set default image if no photo URL is provided
+            holder.tvbookphoto.setImageResource(R.drawable.ic_book_placeholder);
         }
-    });
+        
+        // Set click listener
+        holder.tvbooknamebookItem.setOnClickListener(v -> {
+            if (BookClickListener != null) {
+                BookClickListener.onItemClick(position);
+            }
+        });
+    } catch (Exception e) {
+        // Handle general binding errors
+        e.printStackTrace();
+    }
 }
 
     public interface OnBookClickListener {

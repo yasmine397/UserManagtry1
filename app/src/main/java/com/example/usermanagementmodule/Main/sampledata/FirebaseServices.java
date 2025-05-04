@@ -22,16 +22,19 @@ public class FirebaseServices {
     }
 
     public FirebaseServices() {
-        auth=FirebaseAuth.getInstance();
-        fire=FirebaseFirestore.getInstance();
-        storage=FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
+        fire = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        userChangeFlag = false;
     }
- public static  FirebaseServices GetInstance(){
-        if (instance==null)
-            instance=new FirebaseServices();
+    
+    public static FirebaseServices getInstance() {
+        if (instance == null) {
+            instance = new FirebaseServices();
+        }
         return instance;
+    }
 
- }
     public FirebaseAuth getAuth() {
         return auth;
     }
@@ -43,15 +46,52 @@ public class FirebaseServices {
     public FirebaseStorage getStorage() {
         return storage;
     }
-
-     public static FirebaseServices getInstance(){
-        if(instance==null){
-            instance=new FirebaseServices();
-        }
-        return instance;
-     }
+    
+    public DataUser getCurrentUser() {
+        return currentUser;
+    }
+    
+    public void setCurrentUser(DataUser user) {
+        this.currentUser = user;
+        this.userChangeFlag = true;
+    }
+    
+    public boolean isUserChanged() {
+        return userChangeFlag;
+    }
+    
+    public void resetUserChangeFlag() {
+        this.userChangeFlag = false;
+    }
 
     public void setSelectedImageURL(Uri uri) {
-
+        this.selectedImageURL = uri;
+    }
+    
+    /**
+     * Logs out the current user
+     */
+    public void logout() {
+        auth.signOut();
+        currentUser = null;
+    }
+    
+    /**
+     * Checks if a user is currently logged in
+     * @return boolean indicating if user is logged in
+     */
+    public boolean isLoggedIn() {
+        return auth.getCurrentUser() != null;
+    }
+    
+    /**
+     * Updates the current user data in Firestore
+     */
+    public void updateUserData() {
+        if (currentUser != null && auth.getCurrentUser() != null) {
+            fire.collection("users")
+                .document(auth.getCurrentUser().getUid())
+                .set(currentUser);
+        }
     }
 }

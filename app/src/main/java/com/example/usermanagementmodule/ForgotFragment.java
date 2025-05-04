@@ -1,10 +1,6 @@
 package com.example.usermanagementmodule;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,59 +8,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.usermanagementmodule.Main.sampledata.FirebaseServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ForgotFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass for password reset functionality.
  */
 public class ForgotFragment extends Fragment {
 
-    private EditText etF;
+    private EditText etEmail;
+    private Button btnReset, btnBack;
     private FirebaseServices fbs;
-    private Button btnR;
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam2;
 
     public ForgotFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ForgotFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ForgotFragment newInstance(String param1, String param2) {
-        ForgotFragment fragment = new ForgotFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            // TODO: Rename and change types of parameters
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -74,39 +36,58 @@ public class ForgotFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_forgot, container, false);
     }
 
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            connect();
-        }
-        public void connect()
-        {
-            fbs=FirebaseServices.getInstance();
-            etF=getView().findViewById(R.id.etEmailForgotPassword);
-            btnR = getView().findViewById(R.id.btnResetForgrotPassword);
-            btnR.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (etF.getText().toString().isEmpty()) {
-                        Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    fbs.getAuth().sendPasswordResetEmail(etF.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful())
-                            {
-                                Toast.makeText(getActivity(), "Email sent!", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        
+        // Connect components
+        fbs = FirebaseServices.getInstance();
+        etEmail = getView().findViewById(R.id.etEmailForgot);
+        btnReset = getView().findViewById(R.id.btnResetForgot);
+        btnBack = getView().findViewById(R.id.btnBackForgot);
+        
+        // Button listeners
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get email
+                String email = etEmail.getText().toString().trim();
+                
+                // Validate email
+                if (email.isEmpty()) {
+                    Toast.makeText(getActivity(), "Please enter your email address", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-            });
-        }
+                
+                // Send password reset email
+                fbs.getAuth().sendPasswordResetEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Password reset email sent", Toast.LENGTH_SHORT).show();
+                                    // Go back to login screen
+                                    gotoLoginFragment();
+                                } else {
+                                    Toast.makeText(getActivity(), "Error sending password reset email: " + 
+                                            task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
+        
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoLoginFragment();
+            }
+        });
+    }
+    
+    private void gotoLoginFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout2, new LoginFragment());
+        ft.commit();
+    }
 }

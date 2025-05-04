@@ -3,56 +3,34 @@ package com.example.usermanagementmodule;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.usermanagementmodule.Main.sampledata.FirebaseServices;
+import com.example.usermanagementmodule.book.AddDataFragment;
+import com.example.usermanagementmodule.book.BookListFragment;
+import com.squareup.picasso.Picasso;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Home screen fragment that displays user information and navigation options.
  */
 public class HomeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String TAG = "HomeFragment";
+    private TextView tvWelcomeTitle, tvUserGreeting;
+    private ImageView ivUserPhoto;
+    private Button btnViewBooks, btnAddBook, btnUserProfile, btnSignOut;
+    private FirebaseServices fbs;
 
     public HomeFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -60,5 +38,146 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+            Log.d(TAG, "onStart called in HomeFragment");
+            
+            // Initialize Firebase services
+            fbs = FirebaseServices.getInstance();
+            if (fbs == null) {
+                Log.e(TAG, "Failed to initialize Firebase services in HomeFragment");
+            }
+            
+            // Find views
+            tvUserGreeting = getView().findViewById(R.id.tvUserGreeting);
+            ivUserPhoto = getView().findViewById(R.id.ivUserPhoto);
+            btnViewBooks = getView().findViewById(R.id.btnViewBooks);
+            btnAddBook = getView().findViewById(R.id.btnAddBook);
+            btnUserProfile = getView().findViewById(R.id.btnUserProfile);
+            btnSignOut = getView().findViewById(R.id.btnSignOut);
+            
+            // Update UI with user data if available
+            updateUserInfo();
+            
+            // Set button click listeners
+            setupButtonListeners();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Error initializing HomeFragment: " + e.getMessage(), e);
+            Toast.makeText(getContext(), "Error loading home screen", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private void updateUserInfo() {
+        DataUser user = fbs.getCurrentUser();
+        if (user != null) {
+            // Display user's name
+            if (user.getName() != null && !user.getName().isEmpty()) {
+                tvUserGreeting.setText("Hello, " + user.getName() + "!");
+            }
+            
+            // Display user's profile photo if available
+            if (user.getPhoto() != null && !user.getPhoto().isEmpty()) {
+                try {
+                    Picasso.get().load(user.getPhoto()).into(ivUserPhoto);
+                } catch (Exception e) {
+                    Log.e(TAG, "Error loading user profile image: " + e.getMessage());
+                }
+            }
+        }
+    }
+    
+    private void setupButtonListeners() {
+        // View All Books button
+        btnViewBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToBookListScreen();
+            }
+        });
+        
+        // Add New Book button
+        btnAddBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAddBookScreen();
+            }
+        });
+        
+        // User Profile button
+        btnUserProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to user profile (add implementation for profile fragment later)
+                Toast.makeText(getContext(), "Profile feature coming soon", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        // Sign Out button
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+    }
+    
+    private void goToBookListScreen() {
+        try {
+            Log.d(TAG, "Attempting to navigate to BookListFragment");
+            if (getActivity() == null) {
+                Log.e(TAG, "getActivity() returned null");
+                return;
+            }
+            
+            BookListFragment bookListFragment = new BookListFragment();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout2, bookListFragment);
+            ft.addToBackStack("HomeFragment");
+            ft.commit();
+            
+            Log.d(TAG, "Successfully initiated transaction to BookListFragment");
+        } catch (Exception e) {
+            Log.e(TAG, "Error navigating to Book List screen: " + e.getMessage(), e);
+            Toast.makeText(getContext(), "Error opening book list", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private void goToAddBookScreen() {
+        try {
+            if (getActivity() == null) {
+                Log.e(TAG, "getActivity() returned null");
+                return;
+            }
+            
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout2, new AddDataFragment());
+            ft.addToBackStack(null);
+            ft.commit();
+        } catch (Exception e) {
+            Log.e(TAG, "Error navigating to Add Book screen: " + e.getMessage(), e);
+        }
+    }
+    
+    private void signOut() {
+        try {
+            // Sign out from Firebase
+            fbs.logout();
+            
+            // Navigate back to login screen
+            if (getActivity() != null) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout2, new LoginFragment());
+                ft.commit();
+                
+                Toast.makeText(getContext(), "Successfully signed out", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error signing out: " + e.getMessage(), e);
+        }
     }
 }

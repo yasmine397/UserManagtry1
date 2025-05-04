@@ -7,16 +7,16 @@ import java.util.ArrayList;
 public class DataUser {
 
     private String name;
-    private String numphone;
+    private String phoneNumber;
     private String email;
     private ArrayList<Book> books;
     private String datebirth;
     private String photo;
 
 
-    public void Users(String name, String numphone, String email, ArrayList<Book> book , String datebirth,String photo) {
+    public void Users(String name, String phoneNumber, String email, ArrayList<Book> book , String datebirth,String photo) {
         this.name=name;
-        this.numphone=numphone;
+        this.phoneNumber =phoneNumber;
         this.email=email;
         this.books = book;
         this.datebirth=datebirth;
@@ -31,11 +31,11 @@ public class DataUser {
         this.name = name;
     }
 
-    public String getNumphone() {
-        return numphone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String numphone) {this.numphone = numphone;}
+    public void setPhone(String numphone) {this.phoneNumber = numphone;}
 
     public String getEmail() {
         return email;
@@ -61,7 +61,7 @@ public class DataUser {
         this.datebirth = datebirth;
     }
 
-    public void setNumphone(String numphone) {this.numphone = numphone;}
+    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
 
     public String getPhoto() {return photo;}
 
@@ -71,7 +71,7 @@ public class DataUser {
     public String toString() {
         return "DataUser{" +
                 "name='" + name + '\'' +
-                ", phone='" + numphone + '\'' +
+                ", phone='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", books=" + books +
                 ", datebirth='" + datebirth + '\'' +

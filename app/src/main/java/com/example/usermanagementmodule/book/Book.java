@@ -1,62 +1,23 @@
 package com.example.usermanagementmodule.book;
 
-import android.net.Uri;
-
 public class Book {
     private String name;
-    private String veiw;
     private String realestDate;
     private String deseridsion;
     private String booklan;
     private String photo;
 
-    public Book(String deseridsion,String name,String veiw ,String realestDate,String photo) {
-        this.deseridsion = deseridsion;
-        this.name=name;
-        this.veiw=veiw;
-        this.realestDate=realestDate;
-        this.photo=photo;
-        this.booklan=booklan;
+    // Empty constructor needed for Firestore
+    public Book() {
+        // Required empty constructor for Firestore
     }
 
-    public Uri getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getBooklan() {
-        return booklan;
-    }
-
-    public void setBooklan(String booklan) {
-        this.booklan = booklan;
-    }
-
-    public String getDeseridsion() {
-        return deseridsion;
-    }
-
-    public void setDeseridsion(String deseridsion) {
-        this.deseridsion = deseridsion;
-    }
-
-    public String getRealestDate() {
-        return realestDate;
-    }
-
-    public void setRealestDate(String realestDate) {
+    public Book(String name, String realestDate, String deseridsion, String booklan, String photo) {
+        this.name = name;
         this.realestDate = realestDate;
-    }
-
-    public String getVeiw() {
-        return veiw;
-    }
-
-    public void setVeiw(String veiw) {
-        this.veiw = veiw;
+        this.deseridsion = deseridsion;
+        this.booklan = booklan;
+        this.photo = photo;
     }
 
     public String getName() {
@@ -67,16 +28,46 @@ public class Book {
         this.name = name;
     }
 
+    public String getRealestDate() {
+        return realestDate;
+    }
+
+    public void setRealestDate(String realestDate) {
+        this.realestDate = realestDate;
+    }
+
+    public String getDeseridsion() {
+        return deseridsion;
+    }
+
+    public void setDeseridsion(String deseridsion) {
+        this.deseridsion = deseridsion;
+    }
+
+    public String getBooklan() {
+        return booklan;
+    }
+
+    public void setBooklan(String booklan) {
+        this.booklan = booklan;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "name='" + name + '\'' +
-                ", veiw='" + veiw + '\'' +
                 ", realestDate='" + realestDate + '\'' +
                 ", deseridsion='" + deseridsion + '\'' +
                 ", booklan='" + booklan + '\'' +
                 ", photo='" + photo + '\'' +
                 '}';
     }
-
 }
