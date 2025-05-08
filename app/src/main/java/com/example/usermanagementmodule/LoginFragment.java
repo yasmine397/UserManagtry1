@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usermanagementmodule.Main.sampledata.FirebaseServices;
-import com.example.usermanagementmodule.book.AddDataFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -151,7 +150,7 @@ public class LoginFragment extends Fragment {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             // Convert to DataUser object
-                            DataUser user = documentSnapshot.toObject(DataUser.class);
+                            User user = documentSnapshot.toObject(User.class);
                             
                             // Set the current user in FirebaseServices
                             FirebaseServices.getInstance().setCurrentUser(user);

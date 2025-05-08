@@ -15,17 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usermanagementmodule.Main.sampledata.FirebaseServices;
-import com.example.usermanagementmodule.book.AddDataFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -142,13 +138,13 @@ public class SignupFragment extends Fragment {
                                 String userId = fbs.getAuth().getCurrentUser().getUid();
                                 
                                 // Create DataUser object
-                                DataUser user = new DataUser();
+                                User user = new User();
                                 user.setEmail(email);
-                                user.setName(name);
+                                user.setUsername(name);
                                 user.setPhoneNumber(phone);
-                                user.setDatebirth(dateBirth);
+                                user.setDateOfBirth(dateBirth);
                                 user.setBooks(new ArrayList<>());
-                                user.setPhoto("");
+                                user.setImageUrl("");
                                 
                                 // Add user to Firestore
                                 fbs.getFire().collection("users").document(userId)

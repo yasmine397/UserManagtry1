@@ -2,6 +2,7 @@ package com.example.usermanagementmodule.book;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.usermanagementmodule.R;
@@ -69,6 +72,20 @@ public class BookGridAdapter extends RecyclerView.Adapter<BookGridAdapter.BookVi
         } catch (Exception e) {
             Log.e(TAG, "Error binding book view: " + e.getMessage());
         }
+        //y
+        holder.ivBookCover.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("title", book.getName());
+            bundle.putString("description", book.getDeseridsion());
+            bundle.putString("imageUrl", book.getPhoto());
+
+            FragmentTransaction transaction = ((FragmentActivity) context)
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+            transaction.replace(R.id.fragment_container, new BookDetail());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
     }
 
     @Override
@@ -81,6 +98,8 @@ public class BookGridAdapter extends RecyclerView.Adapter<BookGridAdapter.BookVi
     }
 
     public interface OnBookClickListener {
+        void onBookClick(Book book);
+
         void onBookClick(int position, Book book);
     }
 
@@ -92,6 +111,9 @@ public class BookGridAdapter extends RecyclerView.Adapter<BookGridAdapter.BookVi
             super(itemView);
             ivBookCover = itemView.findViewById(R.id.ivBookCover);
             tvBookTitle = itemView.findViewById(R.id.tvBookTitle);
+
         }
+
     }
+
 } 

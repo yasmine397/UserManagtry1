@@ -2,7 +2,7 @@ package com.example.usermanagementmodule.Main.sampledata;
 
 import android.net.Uri;
 
-import com.example.usermanagementmodule.DataUser;
+import com.example.usermanagementmodule.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -14,7 +14,7 @@ public class FirebaseServices {
     private FirebaseFirestore fire;
     private FirebaseStorage storage;
     private Uri selectedImageURL;
-    private DataUser currentUser;
+    private User currentUser;
     private boolean userChangeFlag;
 
     public Uri getSelectedImageURL() {
@@ -47,11 +47,11 @@ public class FirebaseServices {
         return storage;
     }
     
-    public DataUser getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
     
-    public void setCurrentUser(DataUser user) {
+    public void setCurrentUser(User user) {
         this.currentUser = user;
         this.userChangeFlag = true;
     }

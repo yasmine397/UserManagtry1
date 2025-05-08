@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "UserManagementModule"
+rootProject.name = "UserManagtry1"
 include(":app")
  

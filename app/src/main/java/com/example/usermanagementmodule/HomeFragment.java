@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
  */
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
-    private TextView tvWelcomeTitle, tvUserGreeting;
+    private TextView  tvUserGreeting;
     private ImageView ivUserPhoto;
     private Button btnViewBooks, btnAddBook, btnUserProfile, btnSignOut;
     private FirebaseServices fbs;
@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
             }
             
             // Find views
-            tvUserGreeting = getView().findViewById(R.id.tvUserGreeting);
+
             ivUserPhoto = getView().findViewById(R.id.ivUserPhoto);
             btnViewBooks = getView().findViewById(R.id.btnViewBooks);
             btnAddBook = getView().findViewById(R.id.btnAddBook);
@@ -73,17 +73,17 @@ public class HomeFragment extends Fragment {
     }
     
     private void updateUserInfo() {
-        DataUser user = fbs.getCurrentUser();
+        User user = fbs.getCurrentUser();
         if (user != null) {
             // Display user's name
-            if (user.getName() != null && !user.getName().isEmpty()) {
-                tvUserGreeting.setText("Hello, " + user.getName() + "!");
+            if (user.getUsername() != null && !user.getUsername().isEmpty()) {
+                tvUserGreeting.setText("Hello, " + user.getUsername() + "!");
             }
             
             // Display user's profile photo if available
-            if (user.getPhoto() != null && !user.getPhoto().isEmpty()) {
+            if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
                 try {
-                    Picasso.get().load(user.getPhoto()).into(ivUserPhoto);
+                    Picasso.get().load(user.getImageUrl()).into(ivUserPhoto);
                 } catch (Exception e) {
                     Log.e(TAG, "Error loading user profile image: " + e.getMessage());
                 }
