@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splashscreenx"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:contentDescription="TODO">
+
+    <ImageView
+        android:id="@+id/imlogo"
+        android:layout_width="253dp"
+        android:layout_height="219dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="176dp"
+        android:background="#4D0202"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/wat"
+        app:layout_constraintHorizontal_bias="0.576"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_foreground"
+        app:tint="#4D0202"
+        tools:ignore="MissingConstraints"
+        tools:srcCompat="@mipmap/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/wat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:text="Wat"
+        android:textColor="@color/black"
+        android:textSize="48sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/welcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.556"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.013" />
+
+    <TextView
+        android:id="@+id/logoook"
+        android:layout_width="116dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="25dp"
+        android:text="book"
+        android:textColor="#4D0202"
+        android:textSize="48sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/welcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/wat"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.013" />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="281dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="300dp"
+        android:text="welcome to your new world"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imlogo" />
+</androidx.constraintlayout.widget.ConstraintLayout>

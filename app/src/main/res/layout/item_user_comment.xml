@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f0f0f0"
+    android:padding="12dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
+
+    <!-- User Icon and Name -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/user_photo"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_profile_placeholder"
+            android:contentDescription="User Icon" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Book Info -->
+    <RatingBar
+        android:id="@+id/user_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="6dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="1" />
+
+    <LinearLayout
+        android:layout_width="204dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="65dp"
+            android:layout_height="83dp"
+            android:contentDescription="Book Cover"
+            android:src="@drawable/ic_book_placeholder" />
+
+        <LinearLayout
+            android:layout_width="123dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/book_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Book Name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/book_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="read"
+                android:textColor="#00796B" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- User Rating -->
+
+    <!-- Comment Text -->
+    <TextView
+        android:id="@+id/comment_text"
+        android:layout_width="380dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="8dp"
+        android:text="User's comment goes here." />
+</LinearLayout>

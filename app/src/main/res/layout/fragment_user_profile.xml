@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Profile Picture -->
+
+        <!-- User Name -->
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_profile_placeholder"
+            android:contentDescription="Profile Image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_placeholder" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <!-- Number of Books -->
+        <TextView
+            android:id="@+id/books_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Books: 0"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <!-- Bio -->
+        <EditText
+            android:id="@+id/bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tell us about yourself"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:layout_marginTop="12dp" />
+
+        <!-- Updates/Comments Section Title -->
+        <TextView
+            android:id="@+id/updates_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Updates"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp" />
+
+        <!-- RecyclerView for Comments -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false" />
+    </LinearLayout>
+</ScrollView>

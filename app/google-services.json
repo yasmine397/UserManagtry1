@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "556229908921",
+    "project_id": "usermanagementmodule-2635e",
+    "storage_bucket": "usermanagementmodule-2635e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556229908921:android:67d93850fe86582993fe68",
+        "android_client_info": {
+          "package_name": "com.example.usermanagementmodule"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ_LAaMYOBYLSasuNA7G69x2xPiJWT6gU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

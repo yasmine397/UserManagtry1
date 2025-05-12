@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+
+        <ImageView
+            android:id="@+id/bookCover"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Book Cover"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/bookTitle"
+            android:layout_width="243dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="bookname"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/bookCover"
+            app:layout_constraintTop_toTopOf="@id/bookCover" />
+
+        <Button
+            android:id="@+id/downloadButton"
+            android:layout_width="180dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="72dp"
+            android:text="Download"
+            app:layout_constraintEnd_toStartOf="@+id/btnMarkAsRead"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/bookCover"
+            app:layout_constraintTop_toBottomOf="@+id/bookTitle" />
+
+        <Spinner
+            android:id="@+id/book_status_spinner"
+            android:layout_width="71dp"
+            android:layout_height="48dp"
+            android:entries="@array/book_status_options"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="320dp"
+            tools:layout_editor_absoluteY="123dp" />
+
+        <TextView
+            android:id="@+id/bookDescription"
+            android:layout_width="376dp"
+            android:layout_height="111dp"
+            android:hint="book description"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="248dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="351dp">
+
+            <EditText
+                android:id="@+id/commentInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="add comment"
+                android:minHeight="48dp"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/buttonSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="send"
+                android:src="@android:drawable/ic_menu_send"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            tools:ignore="MissingConstraints">
+
+        </LinearLayout>
+
+
+
+        <RatingBar
+            android:id="@+id/ratingBarUser"
+            android:layout_width="203dp"
+            android:layout_height="51dp"
+            android:numStars="5"
+            android:progressTint="@color/text_icon_background"
+            android:stepSize="1"
+            tools:layout_editor_absoluteX="-2dp"
+            tools:layout_editor_absoluteY="182dp"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewComments"
+            android:layout_width="379dp"
+            android:layout_height="302dp"
+            android:nestedScrollingEnabled="false"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-1dp"
+            tools:layout_editor_absoluteY="410dp" />
+
+        <RatingBar
+            android:id="@+id/ratingBarAverage"
+            android:layout_width="183dp"
+            android:layout_height="51dp"
+            android:layout_marginEnd="64dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="@color/text_icon_background"
+            android:rating="4.3"
+            android:stepSize="0.5"
+            app:layout_constraintBottom_toTopOf="@+id/downloadButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookTitle"
+            app:layout_constraintVertical_bias="0.44" />
+
+        <TextView
+            android:id="@+id/ratingValueText"
+            android:layout_width="45dp"
+            android:layout_height="41dp"
+            android:textColor="#990000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnMarkAsRead"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ratingBarAverage"
+            app:layout_constraintTop_toBottomOf="@+id/bookTitle"
+            tools:ignore="UnknownId" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
